@@ -69,59 +69,15 @@ div.b{
   li.usel a:hover, .dropdown:hover .dropbtn {
     background-color: darkorange;
   }
-
-  ul.ed {
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    overflow: visible;  
-   
-    background-color: yellowgreen;
-    position: sticky;
-    top:0px;
-  }
   
-  li.ed {
- 
-    display: inline-block;
-  }
-  
-  li.ed a, .dropbtn {
-    display: inline-block;
-    padding: 10px 10px;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-  }
- 
-
-  li.ed a:hover, .dropdown:hover .dropbtn {
-    background-color: green;
-  }
-  
-  li.sel {
-    background-color: green;
-    display: inline-block;
-  }
-  
-  li.sel a, .dropbtn {
-    display: inline-block;
-    padding: 10px 10px;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-  }
- li.sel a:hover, .dropdown:hover .dropbtn{
-    background-color: green;
-  }
-
- 
   .dropdown-content {
+    display: none;
     position: absolute; 
+
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
- 
+
     z-index: 1;
              
   }
@@ -139,3 +95,51 @@ div.b{
   .dropdown:hover .dropdown-content {
     display: block;
   }
+  
+
+  ul.ed {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: visible;  
+   
+    background-color: yellowgreen;
+    position: static;
+    top:0px;
+  }
+  
+  li.ed {
+ 
+    display: inline-block;
+  }
+  
+  li.ed a{
+    display: inline-block;
+    padding: 10px 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+  }
+ 
+
+  li.ed a:hover {
+    background-color: green;
+  }
+  
+  li.sel {
+    background-color: green;
+    display: inline-block;
+  }
+  
+  li.sel a {
+    display: inline-block;
+    padding: 10px 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+  }
+ li.sel a:hover{
+    background-color: green;
+  }
+
+ 
