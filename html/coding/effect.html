@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오리카 제작 도우미</title>
+    <link rel="stylesheet" href="../../mystyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+    <style> </style>
+</head>
+<body>
+        <div id="toplogo" class="font-effect-neon"> YGOPRO Original Card Making Operation</div>
+        <div class="b">
+        <ul> 
+          <li><a class="active" href="../../index.html">개요</a></li>
+          <li class="usel"><a href="../coding/coding.html">코딩</a></li>
+          <li><a href="../load/load.html">적용</a></li>
+          <li><a href="../insertimage/insertimage.html">카드 이미지 편집</a></li>
+      </ul>
+        <ul class="ed">
+        <li class="ed"><a class="active" href="./coding.html">코딩</a></li>
+        <li class="sel"><a href="./effect.html">효과</a></li>
+        <li class="ed"><a href="./need.html">조건</a></li>
+        <li class="ed"><a href="./cost.html">코스트</a></li>
+        </ul>
+        </div>
+        <div class="a">
+        <p>카드의 효과는 정말 많습니다.<br>
+        괜히 자신이 만드는게 아닌 필요한 효과를 찾는 것이 차라리 효과적입니다.<br>
+        하지만 이 장소에선 주로 쓰는 서치, 파괴, 제외 효과를 일단 설명하겠습니다.</p>
+        <p>function s.thfilter(c)<br>
+          return c:ListsCode(CARD_RA) and c:IsSpellTrap() and c:IsAbleToHand()<br>
+        end<br>
+        function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)<br>
+          if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end<br>
+          Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)<br>
+        end<br>
+        function s.thop(e,tp,eg,ep,ev,re,r,rp)<br>
+          Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)<br>
+          local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK,0,1,1,nil)<br>
+          if #g>0 then<br>
+            Duel.SendtoHand(g,nil,REASON_EFFECT)<br>
+            Duel.ConfirmCards(1-tp,g)<br>
+          end<br>
+        end</p>
+        <p>이 효과는 라 관련 마법, 함정 카드를 서치하는 가디언 슬라임의 효과 구문입니다.<br>
+          s.thfilter는 그 범위를 지정하는 필터로, c:ListsCode(CARD_RA)로 카드군을, 
+          c:IsSpellTrap()로 카드 종류(마/함)을, c:IsAbleToHand()로 손패에 넣을 수 있는 카드를 지정하고 있죠.</p>
+          <P>카드군을 지정하는 c:ListsCode(CARD_RA)는 c:IsSetCard(0x(카드군 ID))로 대체될 수 있으며 이 코드 또한 카드군을 지정합니다.<br>
+            c:IsRace(RACE_SPELLCASTER), c:IsAttribute(ATTRIBUTE_DARK)는 각각 종족값과 속성을 지정합니다.<br>
+            이 구문을 삽입 시 효과가 발동하면 원하는 카드를 패에 넣을 수 있는 서치 효과가 됩니다.
+          </P><br>
+          <p>function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)<br>
+            if chkc then return chkc:IsOnField() end<br>
+            if chk==0 then return Duel.IsExistingTarget(nil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end<br>
+            Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)<br>
+            local g=Duel.SelectTarget(tp,nil,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)<br>
+            Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)<br>
+          end<br>
+          function s.desop(e,tp,eg,ep,ev,re,r,rp)<br>
+            local tc=Duel.GetFirstTarget()<br>
+            if tc:IsRelateToEffect(e) then<br>
+              Duel.Destroy(tc,REASON_EFFECT)<br>
+            end<br>
+          end</p>
+          <p>플뢰르 드 바로네스의 대상 파괴 효과입니다.
+          필드 위의 카드를 지정하여 파괴하는 구문이고, target 함수에 Duel.SelectTarget의 카드를 지정하는 구문이 붙어있습니다.<br>
+          그렇다고 target함수를 지우는 것이 예사는 아니며, target 함수는 대상이든 비대상이든 효과의 영향을 받는 것이 존재하는지 확인하는 역할을 하며 대상일 시 저 구문이 붙습니다.<br>
+          Duel.Destroy의 구문을 마지막으로 파괴 효과를 지정합니다.</p><br>
+
+          <p>function s.rmfilter(c)<br>
+            return c:IsMonster() and c:IsAbleToRemove()<br>
+          end<br>
+            function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)<br>
+            if chk==0 then return Duel.IsExistingMatchingCard(s.rmfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)<br>
+              and e:GetHandler():GetFlagEffect(id)==0 end<br>
+            Duel.SetOperationInfo(0,CATEGORY_REMOVE,nil,1,tp,LOCATION_MZONE)<br>
+          end<br>
+          function s.rmop(e,tp,eg,ep,ev,re,r,rp)<br>
+            local c=e:GetHandler()<br>
+            if c:IsRelateToEffect(e) then<br>
+              local reset=RESET_SELF_TURN<br>
+              if Duel.IsTurnPlayer(tp) then reset=RESET_OPPO_TURN end<br>
+              c:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END+reset,EFFECT_FLAG_CLIENT_HINT,1,0,aux.Stringid(id,2))<br>
+            end<br>
+            Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)<br>
+            local g=Duel.SelectMatchingCard(tp,s.rmfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)<br>
+            if #g==0 then return end<br>
+            Duel.HintSelection(g,true)<br>
+            Duel.Remove(g,POS_FACEUP,REASON_EFFECT)<br>
+          end</p>
+          <p>빙검룡 미라제이드의 비대상 제외 효과입니다.<br>
+            아까와 달리 target 함수에 Duel.SelectTarget의 카드를 지정하는 구문이 붙어있지 않고, 
+            Duel.SelectMatchingCard의 코드가 Operation 함수에 붙어있죠. 이것이 비대상과 대상의 차이가 됩니다.<br>
+            효과의 발동전에 효과의 범위의 카드를 지정하는 것과 후에 지정하는 것의 차이가 이곳에 나타납니다.<br>
+            Duel.Remove를 마지막으로 제외 효과가 마무리되죠.
+          </p><br>
+
+          <p>e1:SetTarget(s.sptg)<br>
+            e1:SetOperation(s.spop)<br>
+          이 함수에 target, Operation 함수를 삽입하는 것으로 효과는 마무리됩니다. 
+        s.sptg란 함수를 삽입하고 싶을 때 위에 보이는대로 넣게 됩니다.<br>
+      이것으로 효과 함수 작성이 마무리되죠.</p>
+</div>
+        
+</body>
+</html>

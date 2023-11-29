@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오리카 제작 도우미</title>
+    <link rel="stylesheet" href="../../mystyle.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+    <style> </style>
+</head>
+<body>
+        <div id="toplogo" class="font-effect-neon"> YGOPRO Original Card Making Operation</div>
+        <div class="b">
+        <ul> 
+          <li><a class="active" href="../../index.html">개요</a></li>
+          <li class="usel"><a href="../coding/coding.html">코딩</a></li>
+          <li><a href="../load/load.html">적용</a></li>
+          <li><a href="../insertimage/insertimage.html">카드 이미지 편집</a></li>
+      </ul>
+        <ul class="ed">
+        <li class="ed"><a class="active" href="./coding.html">코딩</a></li>
+        <li class="ed"><a href="./effect.html">효과</a></li>
+        <li class="ed"><a href="./need.html">조건</a></li>
+        <li class="sel"><a href="./cost.html">코스트</a></li>
+        </ul>
+        </div>
+        <div class="a">
+        <p>카드의 효과를 적용하는 코스트는 꼭 필요한 것은 아닙니다.</p>
+        <p>코스트로 지정되는 것은 주로 패, 필드의 카드 또는 라이프가 코스트가 됩니다.</p>
+        <p>function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)<br>
+	       if chk==0 then return e:GetHandler():IsReleasable() end<Br>
+	        Duel.Release(e:GetHandler(),REASON_COST)<br>
+          end</p>
+          <p>위의 코드는 릴리즈할 코스트를 자신(이 카드)으로 지정하는 코드입니다.</p>
+          <p>function s.cfilter(c,tp)<br>
+            return Duel.GetMZoneCount(tp,c)>0<br>
+          end<br>
+          function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)<br>
+            e:SetLabel(1)<br>
+            if chk==0 then return Duel.CheckReleaseGroupCost(tp,s.cfilter,1,false,nil,nil,tp) end<br>
+            local g=Duel.SelectReleaseGroupCost(tp,s.cfilter,1,1,false,nil,nil,tp)<br>
+            Duel.Release(g,REASON_COST)<br>
+          end</p>
+          <p>이 코드는 필드의 몬스터 존의 카드를 릴리즈하는 구문으로, s.cfilter는 몬스터 존의 카드로 필터를 제한하는 구문이 들어가 있습니다.<br>
+            이를 적절히 수정하여 패의 카드를 릴리즈하도록 바꿀 수 있습니다.<br>
+            GetMzoneCount의 Mzone을 HAND로 바꿀 시 이것이 가능합니다.
+        </p>
+        <p>function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)<br>
+          if chk==0 then return true end<br>
+          Duel.PayLPCost(tp,math.floor(Duel.GetLP(tp)/2))<br>
+        end</p>
+        <p>위의 코드는 라이프를 절반을 코스트로 하게 되는 구문입니다.</p>
+        <p>function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)<br>
+          if chk==0 then return Duel.CheckLPCost(tp,3000) end<br>
+          Duel.PayLPCost(tp,3000)<br>
+        end</p>
+        <p>이 코드는 일정 라이프를 코스트로 하게 만드는 구문입니다.<br>
+        이 또한 3000 부분을 수정하여 다른 라이프 포인트를 지불하게 하거나, 라이프가 X 이상일 때 Y(X보다 작은 수)를 지불하게 할 수도 있습니다.</p></div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+body{
+    margin: 0px;
+    background-color: rgb(163, 110, 54);
+
+  }
+  #toplogo {
+    font-family: "Lucida Handwriting", sans-serif;
+    font-size: 60px;
+    background-color: rgb(163, 110, 54);
+    color: gold;
+    width: 100%;
+    line-height: 2.0;
+  }
+div.a{
+      border: 5px solid gold;
+      background-color: rgb(207, 192, 192);
+      color:rgb(0, 0, 0);
+      margin-top: 0px;
+      margin-left: 100px;
+      margin-right: 100px;
+}
+div.b{
+  margin-left: 100px;
+  margin-right: 100px;
+}
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: visible;  
+   
+    background-color: orange;
+    position: sticky;
+    top:0px;
+  }
+
+  li {
+ 
+    display: inline-block;
+  }
+  
+  li a, .dropbtn {
+    display: inline-block;
+    padding: 14px 16px;
+    color: yellow;
+    text-align: center;
+    text-decoration: none;
+  }
+
+    
+  li a:hover, .dropdown:hover .dropbtn {
+    background-color: darkorange;
+  }
+
+  li.usel {
+    background-color: darkorange;
+    display: inline-block;
+  }
+  
+  li.usel a, .dropbtn {
+    display: inline-block;
+    padding: 14px 16px;
+    color: yellow;
+    text-align: center;
+    text-decoration: none;
+  }
+
+    
+  li.usel a:hover, .dropdown:hover .dropbtn {
+    background-color: darkorange;
+  }
+
+  ul.ed {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: visible;  
+   
+    background-color: yellowgreen;
+    position: sticky;
+    top:0px;
+  }
+  
+  li.ed {
+ 
+    display: inline-block;
+  }
+  
+  li.ed a, .dropbtn {
+    display: inline-block;
+    padding: 10px 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+  }
+ 
+
+  li.ed a:hover, .dropdown:hover .dropbtn {
+    background-color: green;
+  }
+  
+  li.sel {
+    background-color: green;
+    display: inline-block;
+  }
+  
+  li.sel a, .dropbtn {
+    display: inline-block;
+    padding: 10px 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+  }
+ li.sel a:hover, .dropdown:hover .dropbtn{
+    background-color: green;
+  }
+
+ 
+  .dropdown-content {
+    position: absolute; 
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+ 
+    z-index: 1;
+             
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block; 
+    text-align: left;
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1;}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
