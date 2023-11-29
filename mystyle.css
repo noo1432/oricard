@@ -16,12 +16,12 @@ div.a{
       background-color: rgb(207, 192, 192);
       color:rgb(0, 0, 0);
       margin-top: 0px;
-      margin-left: 150px;
-      margin-right: 150px;
+      margin-left: 15%;
+      margin-right: 15%;
 }
 div.b{
-  margin-left: 150px;
-  margin-right: 150px;
+  margin-left: 15%;
+  margin-right: 15%;
 }
   ul {
     list-style-type: none;
